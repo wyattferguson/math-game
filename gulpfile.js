@@ -4,9 +4,10 @@ const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
+const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
+const server = require('gulp-webserver');
 
 
 // Setup paths to assets
@@ -40,7 +41,19 @@ function jsTask(){
     );
 }
 
-
+// Basic Webserver 
+function serverTask(){
+    return src(['.'])
+        .pipe(server({
+            fallback: './index.html',
+            defaultFile: './index.html',
+            port: 80,
+            livereload: true,
+            directoryListing: false,
+            open: true
+        })
+    );
+}
 
 // Watch task: watch SCSS and JS files for changes
 // If any change, run scss and js tasks simultaneously
@@ -57,6 +70,6 @@ function watchTask(){
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
 exports.default = series(
-    parallel(scssTask, jsTask), 
+    parallel(scssTask, jsTask, serverTask), 
     watchTask
 );
