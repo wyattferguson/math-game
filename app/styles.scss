@@ -7,8 +7,8 @@ $font-family: 'Open Sans', Helvetica, sans-serif;
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-heavy: 700;
-$font-height: 1.5;
-$font-size-base: 1rem;
+$font-height: 1em;
+$font-size-base: 1.2em;
 
 
 // colors
@@ -22,14 +22,28 @@ $beige: #D8C3A5;
 
 
 // grid
+$container-size: 96%;
 $width: 96%;
-$gutter: 4%;
+$gutter: 2%;
 $breakpoint-small: 33.75em; // 540px
 $breakpoint-med: 45em; // 720px
 $breakpoint-large: 60em; // 960px
 
 
 // universal
+
+#board{
+  background-color:$green;
+}
+
+#sidebar{
+  background-color: $highlight;
+}
+
+#spacer{
+  background-color: $secondary;
+}
+
 html,
 body {
   height: 100%;
@@ -130,8 +144,8 @@ p {
   }
 
   @media only screen and (min-width: $breakpoint-large) {
-    width: 75%;
-    max-width: 60rem;
+    width: 100%;
+    max-width: $container-size;
   }
 }
 

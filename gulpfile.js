@@ -45,8 +45,8 @@ function jsTask(){
 function serverTask(){
     return src(['.'])
         .pipe(server({
-            fallback: './index.html',
-            defaultFile: './index.html',
+            fallback: 'index.html',
+            defaultFile: 'index.html',
             port: 80,
             livereload: true,
             directoryListing: false,
@@ -59,7 +59,7 @@ function serverTask(){
 // If any change, run scss and js tasks simultaneously
 function watchTask(){
     watch([files.inputPath + '*.scss', files.inputPath + '*.js'],
-        {interval: 1000, usePolling: true}, //Makes docker work
+        {interval: 500, usePolling: true}, //Makes docker work
         series(
             parallel(scssTask, jsTask),
         )
