@@ -6,29 +6,38 @@
     <link rel="stylesheet" href="dist/css/app.min.css">
     <title>Math Game</title>
 </head>
-<body>
-    <div id="app">
-
-                    
-    <div class="container">
+<body>                
+    <div id="app" class="container">
         <div class="row">
-            <div id="board" class="col-12">
-                            
-                {{ message }}
+            <div id="sidebar" class="col-2">
+                <h1 id="logo">sMATH</h1>
+                <div class="details">
+                    <p>Answer 20 math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                        <strong>R - Restart</strong><br>
+                        <strong>Enter - Submit Answer</strong>
+                    </p>
+                    <ul>
+                        <li><a href="github">Github</a></li>
+                        <li><a href="twitter">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
 
-                <h1>Header 1</h1>
-                <h2>Header 2</h2>
-                <h3>Header 3</h3>
-                <h4>Header 4</h4>
-                <h5>Header 5</h5>
-                <h6>Header 6</h6>
-                <p>
-                Additionally, should you choose to style any of the <a>headers or paragraph</a> font-weights, simply add the class .font-light, <span class="font-regular">.font-regular</span>, or <span class="font-heavy">.font-heavy</span> to your markup. Paragraph text is set by default to a font-weight of 200. Note: the .font-heavy class should not be used as a replacement for semantic bold body copy.
-                </p>
+            <div id="board" class="col-8">
+                <div id="problem" class="">
+                    <div id="partA" class="large"><span class="spacer">&nbsp;</span>1234</div>
+                    <div id="partB" class="large"><span id="operator" class="spacer">+</span>5678</div>
+                    <hr></hr>
+                    <input type="text" id="answer" placeholder="0" maxlength="5">
+                </div>
+            </div>
+
+            <div id="controls" class="col-2">
+                <h2 id="clock">00:00:00</h2>
+                <h3><span id="answered">0</span> / <span id="questions">20 Correct</span></h3>
+                <h3 id="errors"><span id="error-cnt">0</span> Errors</h3>
             </div>
         </div>
-      </div>
-
     </div>
 </body>
 </html>

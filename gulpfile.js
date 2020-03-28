@@ -41,25 +41,27 @@ function jsTask(){
     );
 }
 
+/*
 // Basic Webserver 
 function serverTask(){
     return src(['.'])
         .pipe(server({
             fallback: 'index.html',
             defaultFile: 'index.html',
-            port: 80,
+            port: 8000,
             livereload: true,
             directoryListing: false,
             open: true
         })
     );
 }
+*/
 
 // Watch task: watch SCSS and JS files for changes
 // If any change, run scss and js tasks simultaneously
 function watchTask(){
     watch([files.inputPath + '*.scss', files.inputPath + '*.js'],
-        {interval: 500, usePolling: true}, //Makes docker work
+        {interval: 250, usePolling: true}, //Makes docker work
         series(
             parallel(scssTask, jsTask),
         )
@@ -70,6 +72,6 @@ function watchTask(){
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
 exports.default = series(
-    parallel(scssTask, jsTask, serverTask), 
+    parallel(scssTask, jsTask), 
     watchTask
 );
