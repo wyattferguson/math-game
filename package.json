@@ -20,5 +20,9 @@
     "gulp-uglify": "^3.0.2",
     "gulp-webserver": "^0.9.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "md5": "^2.2.1",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.1"
+  }
 }

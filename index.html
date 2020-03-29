@@ -12,7 +12,7 @@
             <div id="sidebar" class="col-2">
                 <h1 id="logo">sMATH</h1>
                 <div class="details">
-                    <p>Answer 20 math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                    <p>Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
                         <strong>R - Restart</strong><br>
                         <strong>Enter - Submit Answer</strong>
                     </p>
@@ -25,25 +25,21 @@
 
             <div id="board" class="col-8">
                 <div id="problem" class="">
-                    <div id="partA" class="large"><span class="spacer">&nbsp;</span>1234</div>
-                    <div id="partB" class="large"><span id="operator" class="spacer">+</span>5678</div>
+                    <div class="large"><span class="spacer">&nbsp;</span><span id="partA">{{ partA }}</span></div>
+                    <div class="large"><span id="operator" class="spacer" v-html="operator"></span><span id="partB">{{ partB }}</span></div>
                     <hr></hr>
-                    <input type="text" id="answer" placeholder="0" maxlength="5">
+                    <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value="" number> 
                 </div>
             </div>
 
             <div id="controls" class="col-2">
-                <h2 id="clock">00:00:00</h2>
-                <h3><span id="answered">0</span> / <span id="questions">20 Correct</span></h3>
-                <h3 id="errors"><span id="error-cnt">0</span> Errors</h3>
+                <h2 id="clock">{{ time }}</h2>
+                <h3><span id="answered">{{ correct }}</span> / <span id="questions">{{ totalProblems }} Correct</span></h3>
+                <h3 id="errors"><span id="error-cnt">{{ errors }}</span> Errors</h3>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!-- production version, optimized for size and speed -->
-<!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 
 <script src="dist/js/app.min.js"></script>
