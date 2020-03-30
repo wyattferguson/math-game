@@ -11,7 +11,7 @@ function defaultData(){
     timeID: 0,
     errors: 0,
     onError: false,
-    totalProblems: 3,
+    totalProblems: 10,
     userAnswer: "",
     state: 1,
   };
