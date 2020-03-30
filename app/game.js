@@ -82,15 +82,15 @@ var app = new Vue({
         case 2:
           this.operator = "x";
           a = this.randomNumber(2,12);
-          b = this.randomNumber(2,12);
+          b = this.randomNumber(2,9);
           this.answer = a * b;
           break;
 
         // division
         case 3:
           this.operator = "&divide;"; // html entity for division
-          a = this.randomNumber(2,12);
-          b = this.randomNumber(2,10);
+          a = this.randomNumber(2,11);
+          b = this.randomNumber(2,11);
           c = a * b;
           this.answer = a;
           a = c;

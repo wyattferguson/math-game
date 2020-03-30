@@ -109,10 +109,14 @@ p {
 
   #controls{
     text-align: right;
-  }
 
-  #errors, #error-cnt{
-    color:$highlight;
+    .correct{
+      color:$green!important;
+    }
+
+    .errors{
+      color:$highlight!important;
+    }
   }
 
   #welcome{
