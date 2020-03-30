@@ -22,13 +22,28 @@
             </div>
         </div>
 
-        <div id="board">
+        <div id="welcome" class="center modal" v-if="state == 1">
+            <button v-on:click="startGame">New Game</button>
+        </div>
+
+        <div id="board" class="center" v-else-if="state == 2">
             <div id="problem">
-                <div class="large"><span class="spacer">&nbsp;</span><span id="partA">{{ partA }}</span></div>
-                <div class="large"><span id="operator" class="spacer" v-html="operator"></span><span id="partB">{{ partB }}</span></div>
+                <div id="top">
+                    <span>{{ partA }}</span>
+                </div>
+                <div id="bottom">
+                    <span id="operator" v-html="operator"></span>
+                    <span>{{ partB }}</span>
+                </div>
                 <hr></hr>
-                <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value="" number> 
+                <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value=""> 
             </div>
+        </div>
+
+        <div id="winner" class="center modal" v-else-if="state == 3">
+            <h1>Winner! Winner!</h1>
+            <h2>Time: <span class="time">{{ time }}</span></h2>
+            <button v-on:click="startGame">Start New Game</button>
         </div>
 
         <div id="controls" class="side">

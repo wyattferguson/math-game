@@ -8,9 +8,11 @@ function defaultData(){
     correct: 0,
     time: "00:00:00",
     timeStart: 0,
+    timeID: 0,
     errors: 0,
-    totalProblems: 20,
+    totalProblems: 3,
     userAnswer: "",
+    state: 1,
   };
 }
 
@@ -22,18 +24,16 @@ var app = new Vue({
 
       startTimer: function(){
         this.timeStart = new Date();
-        started = setInterval(this.clockRunning, 10);
+        this.timeID = setInterval(this.updateTimer, 10);
       },
 
       stopTimer: function(){
-        clearInterval(this.timeStart);
-        this.time = "00:00:00";
+        clearInterval(this.timeID);
       },
 
-      clockRunning: function(){
+      updateTimer: function(){
         var currentTime = new Date()
         , timeElapsed = new Date(currentTime - this.timeStart)
-        , hour = timeElapsed.getUTCHours()
         , min = timeElapsed.getUTCMinutes()
         , sec = timeElapsed.getUTCSeconds()
         , ms = timeElapsed.getUTCMilliseconds();
@@ -44,9 +44,10 @@ var app = new Vue({
       checkAnswer: function() {
         if (Number(this.userAnswer) == this.answer){
           this.correct += 1;
-          if (this.correct == this.totalProblems){
-            alert("Winner");
-            this.resetBoard();
+          if (this.correct >= this.totalProblems){
+            this.stopTimer();
+            this.state = 3;
+            this.correct = this.totalProblems; // fix double score bug
           }else{
             this.generateProblem();
           }
@@ -103,27 +104,32 @@ var app = new Vue({
         Object.assign(this.$data, def);
         this.startTimer();
         this.generateProblem();
+        this.state = 2;
       },
 
       randomNumber : function(minimum, maximum){
         return Math.floor(Math.random() * maximum) + minimum;
+      }, 
+
+      startGame: function(){
+        self = this;
+        this.resetBoard();
+      
+        window.addEventListener("keypress", function(e){
+          pressed = String.fromCharCode(e.keyCode);
+          if(pressed == 'R' || pressed == 'r'){
+            self.resetBoard();
+          }else if(pressed == 'a'){ // used for testing
+            self.userAnswer = self.answer;
+          }else if(e.keyCode == '13'){
+            self.checkAnswer();
+          }
+        });
       }
     },
 
     mounted: function(){
-      self = this;
-      this.resetBoard();
       
-      window.addEventListener("keypress", function(e){
-        pressed = String.fromCharCode(e.keyCode);
-        if(pressed == 'R' || pressed == 'r'){
-          self.resetBoard();
-        }else if(pressed == 'a'){
-          self.userAnswer = self.answer;
-        }else if(e.keyCode == '13'){
-          self.checkAnswer();
-        }
-      });
     }
 
 })

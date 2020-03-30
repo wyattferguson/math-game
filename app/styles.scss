@@ -35,6 +35,19 @@ body {
   line-height: 1em;
 }
 
+button{
+  font-size: 3em;
+  background-color: $green;
+  padding:20px;
+  box-shadow: none;
+  font-weight: bold;
+  border:none;
+
+  &:hover{
+    cursor: pointer;
+    background-color: $highlight;
+  }
+}
 
 // typography
 h1{
@@ -47,18 +60,6 @@ h2 {
 
 h3 {
   font-size: $font-size-base * 1.45;
-}
-
-h4 {
-  font-size: $font-size-base * 1.25;
-}
-
-h5 {
-  font-size: $font-size-base;
-}
-
-h6 {
-  font-size: $font-size-base * 0.85;
 }
 
 a{
@@ -91,13 +92,10 @@ p {
     width:250px;
   }
 
-  #board{
+  .center{
+    padding-top:120px;
     width:500px;
     min-width: 500px;
-  }
-
-  #controls{
-    text-align: right;
   }
 }
 
@@ -111,23 +109,38 @@ p {
     padding:15px;
   }
 
+  #controls{
+    text-align: right;
+  }
 
   #errors, #error-cnt{
     color:$highlight;
   }
 
-  .large{
-    font-size: 9em;
-    font-weight: 700;
+  #welcome{
+
+  }
+
+  #winner{
+    .time{
+      color:$green;
+    }
+  }
+
+  .modal{
+    text-align: center;
   }
 
   #problem{
-    padding-top:120px;
     margin:0 auto;
     text-align: right;
 
-    .spacer{
-      width: 100px;
+    #answer, span{
+      font-size: 9em;
+      font-weight: 700;
+    }
+
+    #operator{
       float:left;
     }
 
@@ -138,10 +151,7 @@ p {
 
     #answer{
       text-align: right;
-      font-size: 9em;
-      font-weight: 700;
       width:100%;
-      background-color: none;
       border:2px solid $secondary;
       color:$highlight
     }
