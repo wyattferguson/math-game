@@ -72,7 +72,7 @@ var app = new Vue({
           case 2:
             this.operator = "x";
             a = this.randomNumber(2,15);
-            b = this.randomNumber(2, 15);
+            b = this.randomNumber(2,15);
             this.answer = a * b;
             break;
 
@@ -88,7 +88,7 @@ var app = new Vue({
           default:
             this.operator = "+";
             a = this.randomNumber(1,50);
-            b = this.randomNumber(1, 50);
+            b = this.randomNumber(1,50);
             this.answer = a + b;
             break;
         }
@@ -113,8 +113,7 @@ var app = new Vue({
     mounted: function(){
       self = this;
       this.resetBoard();
-      this.startTimer();
-
+      
       window.addEventListener("keypress", function(e){
         pressed = String.fromCharCode(e.keyCode);
         if(pressed == 'R' || pressed == 'r'){

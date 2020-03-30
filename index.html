@@ -8,35 +8,33 @@
 </head>
 <body>                
     <div id="app" class="container">
-        <div class="row">
-            <div id="sidebar" class="col-2">
-                <h1 id="logo">sMATH</h1>
-                <div class="details">
-                    <p>Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
-                        <strong>R - Restart</strong><br>
-                        <strong>Enter - Submit Answer</strong>
-                    </p>
-                    <ul>
-                        <li><a href="github">Github</a></li>
-                        <li><a href="twitter">Twitter</a></li>
-                    </ul>
-                </div>
+        <div id="sidebar" class="side">
+            <h1 id="logo">sMATH</h1>
+            <div class="details">
+                <p>Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                    <strong>R - Restart</strong><br>
+                    <strong>Enter - Submit Answer</strong>
+                </p>
+                <ul>
+                    <li><a href="github">Github</a></li>
+                    <li><a href="twitter">Twitter</a></li>
+                </ul>
             </div>
+        </div>
 
-            <div id="board" class="col-8">
-                <div id="problem" class="">
-                    <div class="large"><span class="spacer">&nbsp;</span><span id="partA">{{ partA }}</span></div>
-                    <div class="large"><span id="operator" class="spacer" v-html="operator"></span><span id="partB">{{ partB }}</span></div>
-                    <hr></hr>
-                    <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value="" number> 
-                </div>
+        <div id="board">
+            <div id="problem">
+                <div class="large"><span class="spacer">&nbsp;</span><span id="partA">{{ partA }}</span></div>
+                <div class="large"><span id="operator" class="spacer" v-html="operator"></span><span id="partB">{{ partB }}</span></div>
+                <hr></hr>
+                <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value="" number> 
             </div>
+        </div>
 
-            <div id="controls" class="col-2">
-                <h2 id="clock">{{ time }}</h2>
-                <h3><span id="answered">{{ correct }}</span> / <span id="questions">{{ totalProblems }} Correct</span></h3>
-                <h3 id="errors"><span id="error-cnt">{{ errors }}</span> Errors</h3>
-            </div>
+        <div id="controls" class="side">
+            <h2 id="clock">{{ time }}</h2>
+            <h3><span id="answered">{{ correct }}</span> / <span id="questions">{{ totalProblems }} Correct</span></h3>
+            <h3 id="errors"><span id="error-cnt">{{ errors }}</span> Errors</h3>
         </div>
     </div>
 </body>
