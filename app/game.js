@@ -145,12 +145,7 @@ var app = new Vue({
   },
 
   mounted: function () {
-    self = this;
-    window.addEventListener("keypress", function(e){
-      if(e.keyCode == '32'){
-        self.startGame();
-      }
-    });
+
   }
 
 })
