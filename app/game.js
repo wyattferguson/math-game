@@ -133,9 +133,7 @@ var app = new Vue({
     
       window.addEventListener("keypress", function(e){
         pressed = String.fromCharCode(e.keyCode);
-        if(pressed == 'R' || pressed == 'r'){
-          self.resetBoard();
-        }else if(pressed == 'a'){ // used for testing, fills in answer
+        if(pressed == 'a'){ // used for testing, fills in answer
           self.userAnswer = self.answer;
         }else if(e.keyCode == '13'){
           self.checkAnswer();
@@ -145,7 +143,13 @@ var app = new Vue({
   },
 
   mounted: function () {
-
+    self = this;
+    window.addEventListener("keypress", function(e){
+      pressed = String.fromCharCode(e.keyCode);
+      if(pressed == 'R' || pressed == 'r'){
+        self.startGame();
+      }
+    });
   }
 
 })
