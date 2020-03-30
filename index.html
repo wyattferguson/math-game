@@ -11,13 +11,14 @@
         <div id="sidebar" class="side">
             <h1 id="logo">sMATH</h1>
             <div class="details">
-                <p>Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                <p>Speed Math! Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                    <strong>Space - Quick Start</strong><br>
                     <strong>R - Restart</strong><br>
                     <strong>Enter - Submit Answer</strong>
                 </p>
                 <ul>
-                    <li><a href="github">Github</a></li>
-                    <li><a href="twitter">Twitter</a></li>
+                    <li>Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a></li>
+                    <li>Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a></li>
                 </ul>
             </div>
         </div>
@@ -36,14 +37,14 @@
                     <span>{{ partB }}</span>
                 </div>
                 <hr></hr>
-                <input v-model="userAnswer" type="number" id="answer" placeholder="0" maxlength="5" value=""> 
+                <input v-model="userAnswer" :class="{ 'shake': onError }" ref="answerInput" type="number" id="answer" placeholder="0" maxlength="5" value="" autofocus > 
             </div>
         </div>
 
         <div id="winner" class="center modal" v-else-if="state == 3">
-            <h1>Winner! Winner!</h1>
+            <h1>Winner!</h1>
             <h2>Time: <span class="time">{{ time }}</span></h2>
-            <button v-on:click="startGame">Start New Game</button>
+            <button v-on:click="startGame">New Game</button>
         </div>
 
         <div id="controls" class="side">
