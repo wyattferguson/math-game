@@ -1,5 +1,3 @@
-var Vue = require('vue');
-var md5 = require('md5');
 
 function defaultData(){
   return {
@@ -8,12 +6,14 @@ function defaultData(){
     operator: "",
     answer: 0,
     correct: 0,
-    time: "00:00:00.00",
+    time: "00:00:00",
+    timeStart: 0,
     errors: 0,
     totalProblems: 20,
     userAnswer: "",
   };
 }
+
 
 var app = new Vue({
     el: '#app',
@@ -21,19 +21,28 @@ var app = new Vue({
     methods: {
 
       startTimer: function(){
-        
+        this.timeStart = new Date();
+        started = setInterval(this.clockRunning, 10);
       },
 
       stopTimer: function(){
-
+        clearInterval(this.timeStart);
+        this.time = "00:00:00";
       },
 
-      resetTimer: function(){
-
+      clockRunning: function(){
+        var currentTime = new Date()
+        , timeElapsed = new Date(currentTime - this.timeStart)
+        , hour = timeElapsed.getUTCHours()
+        , min = timeElapsed.getUTCMinutes()
+        , sec = timeElapsed.getUTCSeconds()
+        , ms = timeElapsed.getUTCMilliseconds();
+      
+        this.time = min + ":" + sec + ":" + ms;
       },
 
       checkAnswer: function() {
-        if (md5(Number(this.userAnswer)) == this.answer){
+        if (Number(this.userAnswer) == this.answer){
           this.correct += 1;
           if (this.correct == this.totalProblems){
             alert("Winner");
@@ -57,14 +66,14 @@ var app = new Vue({
             this.operator = "-";
             a = this.randomNumber(10,100);
             b = this.randomNumber(1, a);
-            this.answer = md5(a - b);
+            this.answer = a - b;
             break;
 
           case 2:
             this.operator = "x";
             a = this.randomNumber(2,15);
             b = this.randomNumber(2, 15);
-            this.answer = md5(a * b);
+            this.answer = a * b;
             break;
 
           case 3:
@@ -72,7 +81,7 @@ var app = new Vue({
             a = this.randomNumber(2,15);
             b = this.randomNumber(2,10);
             c = a * b;
-            this.answer = md5(a);
+            this.answer = a;
             a = c;
             break;
 
@@ -80,7 +89,7 @@ var app = new Vue({
             this.operator = "+";
             a = this.randomNumber(1,50);
             b = this.randomNumber(1, 50);
-            this.answer = md5(a + b);
+            this.answer = a + b;
             break;
         }
 
@@ -92,6 +101,7 @@ var app = new Vue({
       resetBoard: function(){
         def = defaultData();
         Object.assign(this.$data, def);
+        this.startTimer();
         this.generateProblem();
       },
 
@@ -103,10 +113,10 @@ var app = new Vue({
     mounted: function(){
       self = this;
       this.resetBoard();
+      this.startTimer();
 
       window.addEventListener("keypress", function(e){
         pressed = String.fromCharCode(e.keyCode);
-        this.console.log(e.keyCode);
         if(pressed == 'R' || pressed == 'r'){
           self.resetBoard();
         }else if(pressed == 'a'){
@@ -114,7 +124,6 @@ var app = new Vue({
         }else if(e.keyCode == '13'){
           self.checkAnswer();
         }
-
       });
     }
 

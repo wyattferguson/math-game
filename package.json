@@ -21,8 +21,5 @@
     "gulp-webserver": "^0.9.1"
   },
   "dependencies": {
-    "md5": "^2.2.1",
-    "vue": "^2.6.11",
-    "vue-loader": "^15.9.1"
   }
 }
