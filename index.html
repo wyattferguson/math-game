@@ -12,17 +12,25 @@
             <h1 id="logo">sMATH</h1>
             <div class="details">
                 <p>Speed Math! Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
-                    <strong>R - Quick Restart</strong><br>
+                    Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a><br>
+                    Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a>
+                </p>
+
+                <strong class="title">Controls</strong>
+                <p>
+                    <strong>R - Start/Re-start</strong><br>
                     <strong>Enter - Submit Answer</strong>
                 </p>
-                <ul>
-                    <li>Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a></li>
-                    <li>Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a></li>
-                </ul>
             </div>
         </div>
 
         <div id="welcome" class="center modal" v-if="state == 1">
+            <h1>Welcome!</h1>
+            <p>Answer the {{ totalProblems }} questions as quickly as possible.</p>
+            <p>
+                <strong>R - Start/Re-start</strong><br>
+                <strong>Enter - Submit Answer</strong>
+            </p>
             <button v-on:click="startGame">New Game</button>
         </div>
 

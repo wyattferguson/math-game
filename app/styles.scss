@@ -64,18 +64,9 @@ a{
   color:$highlight;
 }
 
-ul{
-  padding:10px 0 0 0;
-  margin:0px;
-  li{
-    padding-bottom:10px;
-    list-style: none;
-  }
-}
-
 p {
-  font-size: 1.2;
-  font-weight: 200;
+  font-size: 1.1em;
+  font-weight: 400;
   line-height: 1.8;
 }
 
@@ -94,6 +85,11 @@ p {
     margin-top:10%;
     width:500px;
     min-width: 500px;
+
+    h1{
+      color:$highlight;
+
+    }
   }
 }
 
@@ -119,24 +115,29 @@ p {
     }
   }
 
-  #welcome{
-
+  #welcome, #winner{
+    border:5px solid $highlight;
+    padding:20px 20px 60px;
   }
 
   #winner{
     .time{
       color:$green;
     }
-
-    h1{
-      color:$highlight;
-      border:5px solid $highlight;
-      padding:15px;
-    }
   }
 
   .modal{
     text-align: center;
+  }
+
+  #sidebar{
+    .title{
+      background-color:$highlight;
+      color: $background;
+      display: block;
+      padding:10px;
+      margin-top:30px;
+    }
   }
 
   #problem{

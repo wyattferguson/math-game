@@ -117,6 +117,7 @@ var app = new Vue({
       this.startTimer();
       this.generateProblem();
       this.state = 2;
+
       // force focus on answer box
       this.$nextTick(function () {
         this.$refs.answerInput.focus()
