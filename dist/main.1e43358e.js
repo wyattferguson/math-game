@@ -8993,7 +8993,7 @@ var _default = {
       this.time = min + ":" + sec + ":" + ms;
     },
     checkAnswer: function checkAnswer() {
-      self = this;
+      var self = this;
 
       if (Number(this.userAnswer) == this.answer) {
         this.correct += 1;
@@ -9073,7 +9073,7 @@ var _default = {
       return Math.floor(Math.random() * maximum) + minimum;
     },
     startGame: function startGame() {
-      self = this;
+      var self = this;
       this.resetBoard();
       window.addEventListener("keypress", function (e) {
         var pressed = String.fromCharCode(e.keyCode);
@@ -9088,7 +9088,7 @@ var _default = {
     }
   },
   mounted: function mounted() {
-    self = this;
+    var self = this;
     window.addEventListener("keypress", function (e) {
       var pressed = String.fromCharCode(e.keyCode);
 
@@ -9335,7 +9335,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44323" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37079" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -100,7 +100,7 @@ export default {
     },
 
     checkAnswer: function() {
-      self = this;
+      const self = this;
       if (Number(this.userAnswer) == this.answer){
         this.correct += 1;
         if (this.correct >= this.totalProblems){
@@ -180,7 +180,7 @@ export default {
     }, 
 
     startGame: function(){
-      self = this;
+      const self = this;
       this.resetBoard();
     
       window.addEventListener("keypress", function(e){
@@ -195,7 +195,7 @@ export default {
   },
 
   mounted: function () {
-    self = this;
+    const self = this;
     window.addEventListener("keypress", function(e){
       let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
