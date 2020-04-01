@@ -1,0 +1,198 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  font-size: 100%;
+  background: #EAE7DC;
+}
+
+* {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  color: #333333;
+  line-height: 1em;
+}
+
+button {
+  font-size: 3em;
+  background-color: #88BDBC;
+  padding: 20px;
+  box-shadow: none;
+  font-weight: bold;
+  border: none;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #E85A4F;
+}
+
+h1 {
+  font-size: 3.6em;
+}
+
+h2 {
+  font-size: 2.7em;
+}
+
+h3 {
+  font-size: 2.1em;
+}
+
+a {
+  color: #E85A4F;
+}
+
+p {
+  font-size: 1.1em;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.container .side {
+  padding: 0 20px;
+  width: 250px;
+}
+.container .center {
+  margin-top: 10%;
+  width: 500px;
+  min-width: 500px;
+}
+.container .center h1 {
+  color: #E85A4F;
+}
+
+#app #logo {
+  background-color: #E85A4F;
+  color: #EAE7DC;
+  text-align: center;
+  padding: 15px;
+}
+#app #controls {
+  text-align: right;
+}
+#app #controls .correct {
+  color: #88BDBC !important;
+}
+#app #controls .errors {
+  color: #E85A4F !important;
+}
+#app #welcome, #app #winner {
+  border: 5px solid #E85A4F;
+  padding: 20px 20px 60px;
+}
+#app #winner .time {
+  color: #88BDBC;
+}
+#app .modal {
+  text-align: center;
+}
+#app #sidebar .title {
+  background-color: #E85A4F;
+  color: #EAE7DC;
+  display: block;
+  padding: 10px;
+  margin-top: 30px;
+}
+#app #problem {
+  margin: 0 auto;
+  text-align: right;
+}
+#app #problem #answer, #app #problem span {
+  font-size: 9em;
+  font-weight: 700;
+}
+#app #problem #operator {
+  float: left;
+}
+#app #problem hr {
+  height: 10px;
+  background-color: #333333;
+}
+#app #problem #answer {
+  text-align: right;
+  width: 100%;
+  border: 2px solid #8E8D8A;
+  color: #E85A4F;
+}
+
+.shake {
+  -webkit-animation: error_shake 0.4s 1 linear;
+  -moz-animation: error_shake 0.4s 1 linear;
+  -o-animation: error_shake 0.4s 1 linear;
+}
+.shake:focus {
+  outline: none !important;
+  border-color: #E85A4F;
+  box-shadow: 0 0 10px #E85A4F;
+}
+
+@-webkit-keyframes error_shake {
+  0% {
+    -webkit-transform: translate(30px);
+  }
+  20% {
+    -webkit-transform: translate(-30px);
+  }
+  40% {
+    -webkit-transform: translate(15px);
+  }
+  60% {
+    -webkit-transform: translate(-15px);
+  }
+  80% {
+    -webkit-transform: translate(8px);
+  }
+  100% {
+    -webkit-transform: translate(0px);
+  }
+}
+@-moz-keyframes error_shake {
+  0% {
+    -moz-transform: translate(30px);
+  }
+  20% {
+    -moz-transform: translate(-30px);
+  }
+  40% {
+    -moz-transform: translate(15px);
+  }
+  60% {
+    -moz-transform: translate(-15px);
+  }
+  80% {
+    -moz-transform: translate(8px);
+  }
+  100% {
+    -moz-transform: translate(0px);
+  }
+}
+@-o-keyframes error_shake {
+  0% {
+    -o-transform: translate(30px);
+  }
+  20% {
+    -o-transform: translate(-30px);
+  }
+  40% {
+    -o-transform: translate(15px);
+  }
+  60% {
+    -o-transform: translate(-15px);
+  }
+  80% {
+    -o-transform: translate(8px);
+  }
+  100% {
+    -o-origin-transform: translate(0px);
+  }
+}
+
+/*# sourceMappingURL=/main.1e43358e.css.map */

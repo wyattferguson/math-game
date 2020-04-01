@@ -1,25 +1,28 @@
 {
-  "name": "gulp-boilerplate",
+  "name": "math-game",
   "version": "1.0.0",
-  "description": "Gulp boilerpate sass, js, and images",
-  "main": "gulpfile.js",
-  "repository": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {},
-  "devDependencies": {
-    "cssnano": "^4.1.10",
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2",
-    "gulp-webserver": "^0.9.1"
-  },
+  "description": "Speed math game",
+  "main": "main.js",
   "dependencies": {
-  }
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.3"
+  },
+  "scripts": {
+    "dev": "parcel index.html",
+    "prod": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyattferguson/math-game.git"
+  },
+  "author": "Wyatt Ferguson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyattferguson/math-game/issues"
+  },
+  "homepage": "https://github.com/wyattferguson/math-game#readme"
 }

@@ -1,3 +1,60 @@
+<template>
+    <div id="app" class="container">
+        <div id="sidebar" class="side">
+            <h1 id="logo">sMATH</h1>
+            <div class="details">
+                <p>Speed Math! Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                    Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a><br>
+                    Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a>
+                </p>
+
+                <strong class="title">Controls</strong>
+                <p>
+                    <strong>R - Start/Re-start</strong><br>
+                    <strong>Enter - Submit Answer</strong>
+                </p>
+            </div>
+        </div>
+
+        <div id="welcome" class="center modal" v-if="state == 1">
+            <h1>Welcome!</h1>
+            <p>Answer the {{ totalProblems }} questions as quickly as possible.</p>
+            <p>
+                <strong>R - Start/Re-start</strong><br>
+                <strong>Enter - Submit Answer</strong>
+            </p>
+            <button v-on:click="startGame">New Game</button>
+        </div>
+
+        <div id="board" class="center" v-else-if="state == 2">
+            <div id="problem">
+                <div id="top">
+                    <span>{{ partA }}</span>
+                </div>
+                <div id="bottom">
+                    <span id="operator" v-html="operator"></span>
+                    <span>{{ partB }}</span>
+                </div>
+                <hr></hr>
+                <input v-model="userAnswer" :class="{ 'shake': onError }" ref="answerInput" type="number" id="answer" placeholder="0" maxlength="5" value="" autofocus > 
+            </div>
+        </div>
+
+        <div id="winner" class="center modal" v-else-if="state == 3">
+            <h1>Winner!</h1>
+            <h2>Time: <span class="time">{{ time }}</span></h2>
+            <button v-on:click="startGame">New Game</button>
+        </div>
+
+        <div id="controls" class="side">
+            <h2 id="clock">{{ time }}</h2>
+            <h3><span>{{ correct }}</span> / {{ totalProblems }} <span class="correct"> Correct</span></h3>
+            <h3><span>{{ errors }}</span> <span class="errors">Errors</span></h3>
+        </div>
+    </div>
+</template>
+
+<script>
 
 function defaultData(){
   return {
@@ -18,8 +75,8 @@ function defaultData(){
 }
 
 
-var app = new Vue({
-  el: '#app',
+export default {
+  name: 'app',
   data: function() { return defaultData(); }, 
   methods: {
 
@@ -33,7 +90,7 @@ var app = new Vue({
     },
 
     updateTimer: function(){
-      var currentTime = new Date()
+      let currentTime = new Date()
       , timeElapsed = new Date(currentTime - this.timeStart)
       , min = timeElapsed.getUTCMinutes()
       , sec = timeElapsed.getUTCSeconds()
@@ -54,7 +111,6 @@ var app = new Vue({
           this.generateProblem();
         }
       }else if(this.userAnswer != ""){
-        self = this;
         this.onError = true;
         setTimeout(function(){
           self.onError = false
@@ -65,9 +121,9 @@ var app = new Vue({
     },
 
     generateProblem: function(){
-      op = this.randomNumber(1,4); // pick random operation
-      a = 0;
-      b = 0;
+      let op = this.randomNumber(1,4); // pick random operation
+      let a = 0;
+      let b = 0;
 
       switch (op) {
         // subtraction
@@ -91,7 +147,7 @@ var app = new Vue({
           this.operator = "&divide;"; // html entity for division
           a = this.randomNumber(2,11);
           b = this.randomNumber(2,11);
-          c = a * b;
+          let c = a * b;
           this.answer = a;
           a = c;
           break;
@@ -112,16 +168,11 @@ var app = new Vue({
 
     resetBoard: function(){
       this.stopTimer();
-      def = defaultData();
+      let def = defaultData();
       Object.assign(this.$data, def);
       this.startTimer();
       this.generateProblem();
       this.state = 2;
-
-      // force focus on answer box
-      this.$nextTick(function () {
-        this.$refs.answerInput.focus()
-      })
     },
 
     randomNumber: function(minimum, maximum){
@@ -133,7 +184,7 @@ var app = new Vue({
       this.resetBoard();
     
       window.addEventListener("keypress", function(e){
-        pressed = String.fromCharCode(e.keyCode);
+        let pressed = String.fromCharCode(e.keyCode);
         if(pressed == 'a'){ // used for testing, fills in answer
           self.userAnswer = self.answer;
         }else if(e.keyCode == '13'){
@@ -146,11 +197,13 @@ var app = new Vue({
   mounted: function () {
     self = this;
     window.addEventListener("keypress", function(e){
-      pressed = String.fromCharCode(e.keyCode);
+      let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
         self.startGame();
       }
     });
   }
 
-})
+}
+
+</script>
