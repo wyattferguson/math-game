@@ -57,7 +57,7 @@
         </div>
 
         <div id="controls" class="side">
-            <h2 id="clock">{{ time }}</h2>
+            <Timer ref="timer"></Timer>
             <h3><span>{{ correct }}</span> / {{ totalProblems }} <span class="correct"> Correct</span></h3>
             <h3><span>{{ errors }}</span> <span class="errors">Errors</span></h3>
         </div>
@@ -65,9 +65,13 @@
 </template>
 
 <script>
+import Timer from './components/Timer'
 
 export default {
   name: 'app',
+  components: {
+    Timer
+  },
   data: function() {
     return {
       partA: 0,
@@ -75,9 +79,6 @@ export default {
       operator: "",
       answer: 0,
       correct: 0,
-      time: "00:00:00",
-      timeStart: 0,
-      timeID: 0,
       errors: 0,
       onError: false,
       totalProblems: 10,
@@ -86,32 +87,12 @@ export default {
     }
   }, 
   methods: {
-
-    startTimer: function(){
-      this.timeStart = new Date();
-      this.timeID = setInterval(this.updateTimer, 20);
-    },
-
-    stopTimer: function(){
-      clearInterval(this.timeID);
-    },
-
-    updateTimer: function(){
-      let currentTime = new Date()
-      , timeElapsed = new Date(currentTime - this.timeStart)
-      , min = timeElapsed.getUTCMinutes()
-      , sec = timeElapsed.getUTCSeconds()
-      , ms = timeElapsed.getUTCMilliseconds();
-    
-      this.time = min + ":" + sec + ":" + ms;
-    },
-
     checkAnswer: function() {
       const self = this;
       if (Number(this.userAnswer) == this.answer){
         this.correct += 1;
         if (this.correct >= this.totalProblems){
-          this.stopTimer();
+          this.$refs.timer.stopTimer();
           this.state = 3;
           this.correct = this.totalProblems; // fix double score bug
         }else{
@@ -174,11 +155,11 @@ export default {
     },
 
     resetBoard: function(){
-      this.stopTimer();
+      this.$refs.timer.stopTimer();
       this.errors = 0;
       this.correct = 0;
       this.userAnswer = "";
-      this.startTimer();
+      this.$refs.timer.startTimer();
       this.generateProblem();
       this.state = 2;
     },
