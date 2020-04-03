@@ -12,6 +12,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@vue/component-compiler-utils": "^2.6.0",
     "parcel-bundler": "^1.12.3",
+    "sass": "^1.26.3",
     "vue-template-compiler": "^2.6.10"
   },
   "scripts": {

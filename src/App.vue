@@ -18,7 +18,17 @@
 
         <div id="welcome" class="center modal" v-if="state == 1">
             <h1>Welcome!</h1>
-            <p>Answer the {{ totalProblems }} questions as quickly as possible.</p>
+            <div id="question-box">
+              <label for="ticks">Number of Problems: {{ totalProblems }}</label>
+              <input type="range" min="10" value="10" max="50" step="10" list="ticks" v-model="totalProblems" >
+              <datalist id="ticks">
+                  <option data-value="10">10</option>
+                  <option data-value="20">20</option>
+                  <option data-value="30">30</option>
+                  <option data-value="40">40</option>
+                  <option data-value="50">50</option>
+              </datalist>
+            </div>
             <p>
                 <strong>R - Start/Re-start</strong><br>
                 <strong>Enter - Submit Answer</strong>
@@ -56,27 +66,25 @@
 
 <script>
 
-function defaultData(){
-  return {
-    partA: 0,
-    partB: 0,
-    operator: "",
-    answer: 0,
-    correct: 0,
-    time: "00:00:00",
-    timeStart: 0,
-    timeID: 0,
-    errors: 0,
-    onError: false,
-    totalProblems: 10,
-    userAnswer: "",
-    state: 1,
-  };
-}
-
 export default {
   name: 'app',
-  data: function() { return defaultData(); }, 
+  data: function() {
+    return {
+      partA: 0,
+      partB: 0,
+      operator: "",
+      answer: 0,
+      correct: 0,
+      time: "00:00:00",
+      timeStart: 0,
+      timeID: 0,
+      errors: 0,
+      onError: false,
+      totalProblems: 10,
+      userAnswer: "",
+      state: 1,
+    }
+  }, 
   methods: {
 
     startTimer: function(){
@@ -167,8 +175,9 @@ export default {
 
     resetBoard: function(){
       this.stopTimer();
-      let def = defaultData();
-      Object.assign(this.$data, def);
+      this.errors = 0;
+      this.correct = 0;
+      this.userAnswer = "";
       this.startTimer();
       this.generateProblem();
       this.state = 2;
@@ -185,7 +194,7 @@ export default {
       window.addEventListener("keypress", function(e){
         let pressed = String.fromCharCode(e.keyCode);
         if(pressed == 'a'){ // used for testing, fills in answer
-          self.userAnswer = self.answer;
+          //self.userAnswer = self.answer;
         }else if(e.keyCode == '13'){
           self.checkAnswer();
         }

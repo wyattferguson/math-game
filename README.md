@@ -17,7 +17,6 @@ npm run prod
 
 ## :bookmark_tabs: TODO's 
 
-- Add selectable number of questions, probably some kind of slider with notches in it at 10,20,50, and 100.
 - Competative leader boards, for the more hardcore amoung you.
 - Different difficulty options, easy - being the current game, medium - algebra, hard - derivatives and integrals.
 

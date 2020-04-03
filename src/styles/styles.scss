@@ -115,19 +115,20 @@ p {
     }
   }
 
-  #welcome, #winner{
+  .modal{
+    text-align: center;
     border:5px solid $highlight;
     padding:20px 20px 60px;
-  }
 
-  #winner{
+    label{
+      display: block;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
     .time{
       color:$green;
     }
-  }
-
-  .modal{
-    text-align: center;
   }
 
   #sidebar{
