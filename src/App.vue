@@ -1,20 +1,6 @@
 <template>
     <div id="app" class="container">
-        <div id="sidebar" class="side">
-            <h1 id="logo">sMATH</h1>
-            <div class="details">
-                <p>Speed Math! Answer {{ totalProblems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
-                    Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a><br>
-                    Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a>
-                </p>
-
-                <strong class="title">Controls</strong>
-                <p>
-                    <strong>R - Start/Re-start</strong><br>
-                    <strong>Enter - Submit Answer</strong>
-                </p>
-            </div>
-        </div>
+        <Sidebar :problems="totalProblems"></Sidebar>
 
         <div id="welcome" class="center modal" v-if="state == 1">
             <h1>Welcome!</h1>
@@ -33,7 +19,7 @@
                 <strong>R - Start/Re-start</strong><br>
                 <strong>Enter - Submit Answer</strong>
             </p>
-            <button v-on:click="startGame">New Game</button>
+            <button v-on:click="resetBoard">New Game</button>
         </div>
 
         <div id="board" class="center" v-else-if="state == 2">
@@ -46,14 +32,17 @@
                     <span>{{ partB }}</span>
                 </div>
                 <hr></hr>
-                <input v-model="userAnswer" :class="{ 'shake': onError }" ref="answerInput" type="number" id="answer" placeholder="0" maxlength="5" value="" autofocus > 
+                <input v-model="userAnswer" @keyup.enter="checkAnswer" :class="{ 'shake': onError }" type="number" id="answer" placeholder="0" maxlength="5" value="" autofocus > 
             </div>
         </div>
 
         <div id="winner" class="center modal" v-else-if="state == 3">
             <h1>Winner!</h1>
             <h2>Time: <span class="time">{{ time }}</span></h2>
-            <button v-on:click="startGame">New Game</button>
+            <h2>Rank: {{ rank }}</h2>
+            <button v-on:click="saveScore">Submit Score</button>
+            <h3>OR</h3>
+            <button v-on:click="resetBoard">New Game</button>
         </div>
 
         <div id="controls" class="side">
@@ -65,12 +54,13 @@
 </template>
 
 <script>
+import Sidebar from './components/Sidebar'
 import Timer from './components/Timer'
 
 export default {
   name: 'app',
   components: {
-    Timer
+    Timer, Sidebar
   },
   data: function() {
     return {
@@ -80,27 +70,32 @@ export default {
       answer: 0,
       correct: 0,
       errors: 0,
+      rank: 0,
       onError: false,
       totalProblems: 10,
       userAnswer: "",
       state: 1,
+      time: 0
     }
   }, 
   methods: {
     checkAnswer: function() {
       const self = this;
+      // correct answer
       if (Number(this.userAnswer) == this.answer){
         this.correct += 1;
-        if (this.correct >= this.totalProblems){
+        if (this.correct >= this.totalProblems){ // check if last problem
           this.$refs.timer.stopTimer();
           this.state = 3;
+          this.time = this.$refs.timer.time;
           this.correct = this.totalProblems; // fix double score bug
         }else{
           this.generateProblem();
         }
-      }else if(this.userAnswer != ""){
+      // wrong answer
+      }else if(this.userAnswer != ""){ // skip if answer is empty
         this.onError = true;
-        setTimeout(function(){
+        setTimeout(function(){ // stop error animation after timelapsed
           self.onError = false
         }, 500);
         this.userAnswer = "";
@@ -154,6 +149,7 @@ export default {
       this.userAnswer = "";
     },
 
+    // completely reset to new game
     resetBoard: function(){
       this.$refs.timer.stopTimer();
       this.errors = 0;
@@ -166,20 +162,6 @@ export default {
 
     randomNumber: function(minimum, maximum){
       return Math.floor(Math.random() * maximum) + minimum;
-    }, 
-
-    startGame: function(){
-      const self = this;
-      this.resetBoard();
-    
-      window.addEventListener("keypress", function(e){
-        let pressed = String.fromCharCode(e.keyCode);
-        if(pressed == 'a'){ // used for testing, fills in answer
-          //self.userAnswer = self.answer;
-        }else if(e.keyCode == '13'){
-          self.checkAnswer();
-        }
-      });
     }
   },
 
@@ -188,7 +170,7 @@ export default {
     window.addEventListener("keypress", function(e){
       let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
-        self.startGame();
+        self.resetBoard();
       }
     });
   }
