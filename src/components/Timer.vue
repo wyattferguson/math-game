@@ -28,7 +28,7 @@ export default {
             let currentTime = new Date()
             , timeElapsed = new Date(currentTime - this.timeStart)
             , min = timeElapsed.getUTCMinutes()
-            , sec = timeElapsed.getUTCSeconds()
+            , sec = (timeElapsed.getUTCSeconds() < 10 ? '0' : '') + timeElapsed.getUTCSeconds()
             , ms = timeElapsed.getUTCMilliseconds();
             
             this.time = min + ":" + sec + ":" + ms;
