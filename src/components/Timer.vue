@@ -28,11 +28,15 @@ export default {
             let currentTime = new Date()
             , timeElapsed = new Date(currentTime - this.timeStart)
             , min = timeElapsed.getUTCMinutes()
-            , sec = (timeElapsed.getUTCSeconds() < 10 ? '0' : '') + timeElapsed.getUTCSeconds()
-            , ms = timeElapsed.getUTCMilliseconds();
+            , sec = this.leadingZeros(timeElapsed.getUTCSeconds())
+            , ms = this.leadingZeros(timeElapsed.getUTCMilliseconds());
             
             this.time = min + ":" + sec + ":" + ms;
         },
+
+        leadingZeros: function(dt){
+            return (dt < 10 ? '0' : '') + dt
+        }
     }
 }
 </script>
