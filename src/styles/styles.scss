@@ -71,8 +71,9 @@ p {
 }
 
 
-// Grid
-.container {
+// Game
+#game{
+
   display: flex;
   justify-content: space-between;
 
@@ -91,11 +92,7 @@ p {
 
     }
   }
-}
-
-
-// Game
-#app{
+  
   #logo{
     background-color: $highlight;
     color: $background;

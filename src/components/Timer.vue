@@ -16,8 +16,9 @@ export default {
     }, 
     methods: {
         startTimer: function(){
+            const interval = 25;
             this.timeStart = new Date();
-            this.timeID = setInterval(this.updateTimer, 20);
+            this.timeID = setInterval(this.updateTimer, interval);
         },
 
         stopTimer: function(){
@@ -34,6 +35,7 @@ export default {
             this.time = min + ":" + sec + ":" + ms;
         },
 
+        // pad times with 0's
         leadingZeros: function(dt){
             return (dt < 10 ? '0' : '') + dt
         }
