@@ -1,5 +1,5 @@
 <template>
-    <div id="game">
+    <div id="game" class="container">
         <Sidebar :problems="Number(totalProblems)"></Sidebar>
 
         <div id="welcome" class="center modal" v-if="state == 1">

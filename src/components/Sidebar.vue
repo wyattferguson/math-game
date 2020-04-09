@@ -3,6 +3,7 @@
         <h1 id="logo">sMATH</h1>
         <div class="details">
             <p>Speed Math! Answer {{ problems }} math problems as quickly as possible. Tip: Answers are always whole numbers.<br><br>
+                 <router-link to="/leaderboard">View Leaderboard</router-link><br><br>
                 Checkout the code on <a href="https://github.com/wyattferguson/math-game">Github</a><br>
                 Follow me on <a href="https://twitter.com/wyattferguson">Twitter</a>
             </p>
