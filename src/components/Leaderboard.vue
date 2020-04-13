@@ -6,6 +6,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'Leaderboard',
     data: function() {
@@ -13,8 +14,15 @@ export default {
         }
     }, 
     methods: {
-        getTopScores: function(){
-
+        saveScore: function(){
+            // Pushes posts to the server when called.
+            this.$http.post(`#`, {
+                body: this.postBody
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+            })
         },
     }
 }

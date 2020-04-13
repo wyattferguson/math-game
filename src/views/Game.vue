@@ -1,18 +1,14 @@
 <template>
     <div id="game" class="container">
-        <Sidebar :problems="Number(totalProblems)"></Sidebar>
+        <Sidebar page="game"></Sidebar>
 
         <div id="welcome" class="center modal" v-if="state == 1">
             <h1>Welcome!</h1>
             <div id="question-box">
               <label for="ticks">Number of Problems: {{ totalProblems }}</label>
-              <input type="range" min="10" value="10" max="50" step="10" list="ticks" v-model="totalProblems" >
+              <input type="range" :min="minQuestions" :max="maxQuestions" :step="minStep" list="ticks" v-model="totalProblems" >
               <datalist id="ticks">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
+                <option v-for="i in (maxQuestions/minStep)" :value="i * minStep" :key="i">{{ i * minStep }}</option>
               </datalist>
             </div>
             <p>
@@ -32,7 +28,7 @@
                     <span>{{ partB }}</span>
                 </div>
                 <hr></hr>
-                <input v-model="userAnswer" @keyup.enter="checkAnswer" :class="{ 'shake': onError }" type="number" id="answer" placeholder="0" maxlength="5" value="" autofocus > 
+                <input v-model.number="userAnswer" @keyup.enter="checkAnswer" :class="{ 'shake': onError }" type="number" id="answer" value="" ref="userAnswer" autofocus> 
             </div>
         </div>
 
@@ -56,6 +52,7 @@
 <script>
 import Sidebar from '../components/Sidebar'
 import Timer from '../components/Timer'
+import Fixed from '../config'
 
 export default {
   name: 'game',
@@ -72,7 +69,10 @@ export default {
       errors: 0,
       rank: 0,
       onError: false,
-      totalProblems: 10,
+      totalProblems: Fixed.minQuestions,
+      maxQuestions: Fixed.maxQuestions,
+      minQuestions: Fixed.minQuestions,
+      minStep: Fixed.minStep,
       userAnswer: "",
       state: 1,
       time: 0
@@ -151,13 +151,18 @@ export default {
 
     // completely reset to new game
     resetBoard: function(){
+      this.state = 2;
       this.$refs.timer.stopTimer();
       this.errors = 0;
       this.correct = 0;
       this.userAnswer = "";
       this.$refs.timer.startTimer();
       this.generateProblem();
-      this.state = 2;
+
+      // wait a beat and set focus on answer box
+      this.$nextTick(() =>{
+        this.$refs.userAnswer.focus();
+      });
     },
 
     randomNumber: function(minimum, maximum){
@@ -171,6 +176,9 @@ export default {
       let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
         self.resetBoard();
+      }else if(pressed =='a' && Fixed.debug){
+        console.log(self.answer);
+        self.userAnswer = self.answer;
       }
     });
   }
