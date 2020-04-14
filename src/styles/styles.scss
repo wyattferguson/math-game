@@ -212,6 +212,32 @@ p {
     width:650px;
     padding:0 15px 0 75px;
     margin-top:15px;
+
+    li{
+      a{
+        padding:0 10px;
+        font-size:1.3em;
+      }
+    }
+
+    table{
+      padding:25px 0 100px;
+      width: 100%;
+
+      th{
+        text-align: left;
+      }
+
+      tr{
+        font-size:1.2em;
+        padding:10px 0;
+        border-bottom: 1px solid $secondary;
+
+        td{
+          padding:5px 0;
+        }
+      }
+    }
   }
 }
 

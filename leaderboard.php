@@ -19,21 +19,14 @@ if (!$con) {
 }
 
 
-/*
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
   case 'GET':
     if(isset($_GET['c'])){
-      $result = get_scores($_GET['c'], 100);
-
-      if (!$id) echo '[';
-
-      for ($i=0 ; $i<mysqli_num_rows($result) ; $i++) {
-        echo ($i>0?',':'').json_encode(mysqli_fetch_object($result));
-      }
-
-      if (!$id) echo ']';
+      $result = get_scores($_GET['c'], 5);
+      $rows = $result->fetch_all(MYSQLI_ASSOC);
+      echo json_encode($rows);
     }
     break;
     
@@ -42,7 +35,7 @@ switch ($method) {
     echo json_encode($result);
     break;
 }
-*/
+
 mysqli_close($con);
 
 
@@ -109,7 +102,7 @@ function get_scores($cat=10, $limit=100){
   if(!validate_cat($cat)){
     die("Invalid Query");
   }
-  $sql = "SELECT * FROM leaderboard WHERE category=$cat LIMIT 50 ORDER BY score DESC"; 
+  $sql = "SELECT * FROM leaderboard WHERE category=$cat ORDER BY score DESC LIMIT 50"; 
   return run_query($sql);
 }
 

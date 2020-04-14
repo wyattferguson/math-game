@@ -176,8 +176,7 @@ export default {
       let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
         self.resetBoard();
-      }else if(pressed =='a' && Fixed.debug){
-        console.log(self.answer);
+      }else if(pressed =='a' && Fixed.debug){ // quick answer for testing
         self.userAnswer = self.answer;
       }
     });
