@@ -1,28 +1,14 @@
-// Styles
+
 import "./styles/styles.scss";
 
-// Vue
 import Vue from 'vue';
-import Router from 'vue-router';
 import App from './App';
 import axios from 'axios';
-
-// Pages
-import Game from './views/Game';
-import Leaderboard from './views/Leaderboard';
-
-Vue.use(Router);
-
-const router = new Router({
-  routes: [
-    { path: '/', name:"home", component: Game },
-    { path: '/leaderboard/:cat', name:"leaderboard", component: Leaderboard }
-  ]
-});
-
+import router from './router';
+import cfg from './config';
 
 Vue.prototype.$http = axios.create({
-  baseURL: "http://localhost:80/math-game/leaderboard.php"
+  baseURL: cfg.server
 });
 
 new Vue({

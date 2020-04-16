@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'Timer',
+    name: 'timer',
     data: function() {
         return {
             time: "00:00:00",

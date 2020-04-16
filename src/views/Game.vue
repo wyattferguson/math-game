@@ -1,24 +1,9 @@
 <template>
     <div id="game" class="container">
-        <Sidebar page="game"></Sidebar>
+        <sidebar page="game"></sidebar>
+        <welcome v-on:update-total="updateTotalProblems" @reset-board="resetBoard" v-if="state == 'welcome'"></welcome>
 
-        <div id="welcome" class="center modal" v-if="state == 1">
-            <h1>Welcome!</h1>
-            <div id="question-box">
-              <label for="ticks">Number of Problems: {{ totalProblems }}</label>
-              <input type="range" :min="minQuestions" :max="maxQuestions" :step="minStep" list="ticks" v-model="totalProblems" >
-              <datalist id="ticks">
-                <option v-for="i in (maxQuestions/minStep)" :value="i * minStep" :key="i">{{ i * minStep }}</option>
-              </datalist>
-            </div>
-            <p>
-                <strong>R - Start/Re-start</strong><br>
-                <strong>Enter - Submit Answer</strong>
-            </p>
-            <button v-on:click="resetBoard">New Game</button>
-        </div>
-
-        <div id="board" class="center" v-else-if="state == 2">
+        <div id="board" class="center" v-else-if="state == 'board'">
             <div id="problem">
                 <div id="top">
                     <span>{{ partA }}</span>
@@ -32,7 +17,7 @@
             </div>
         </div>
 
-        <div id="winner" class="center modal" v-else-if="state == 3">
+        <div id="winner" class="center modal" v-else-if="state == 'winner'">
             <h1>Winner!</h1>
             <h2>Time: <span class="time">{{ time }}</span></h2>
             <!--<h2>Rank: {{ rank }}</h2>
@@ -42,7 +27,7 @@
         </div>
 
         <div id="controls" class="side">
-            <Timer ref="timer"></Timer>
+            <timer ref="timer"></timer>
             <h3><span>{{ correct }}</span> / {{ totalProblems }} <span class="correct"> Correct</span></h3>
             <h3><span>{{ errors }}</span> <span class="errors">Errors</span></h3>
         </div>
@@ -50,16 +35,17 @@
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar'
-import Timer from '../components/Timer'
-import Fixed from '../config'
+import sidebar from '../components/sidebar'
+import timer from '../components/timer'
+import welcome from '../components/welcome'
+import cfg from '../config'
 
 export default {
   name: 'game',
   components: {
-    Timer, Sidebar
+    timer, sidebar, welcome
   },
-  data: function() {
+  data() {
     return {
       partA: 0,
       partB: 0,
@@ -69,24 +55,21 @@ export default {
       errors: 0,
       rank: 0,
       onError: false,
-      totalProblems: Fixed.minQuestions,
-      maxQuestions: Fixed.maxQuestions,
-      minQuestions: Fixed.minQuestions,
-      minStep: Fixed.minStep,
+      totalProblems: 10,
       userAnswer: "",
-      state: 1,
+      state: "welcome",
       time: 0
     }
   }, 
   methods: {
-    checkAnswer: function() {
+    checkAnswer() {
       const self = this;
       // correct answer
       if (Number(this.userAnswer) == this.answer){
         this.correct += 1;
         if (this.correct >= this.totalProblems){ // check if last problem
           this.$refs.timer.stopTimer();
-          this.state = 3;
+          this.state = "winner";
           this.time = this.$refs.timer.time;
           this.correct = this.totalProblems; // fix double score bug
         }else{
@@ -103,7 +86,7 @@ export default {
       }
     },
 
-    generateProblem: function(){
+    generateProblem(){
       let op = this.randomNumber(1,4); // pick random operation
       let a = 0;
       let b = 0;
@@ -150,8 +133,8 @@ export default {
     },
 
     // completely reset to new game
-    resetBoard: function(){
-      this.state = 2;
+    resetBoard(){
+      this.state = "board";
       this.$refs.timer.stopTimer();
       this.errors = 0;
       this.correct = 0;
@@ -165,18 +148,23 @@ export default {
       });
     },
 
-    randomNumber: function(minimum, maximum){
+    // catch updated total from welcome component
+    updateTotalProblems(event){
+      this.totalProblems = event.target.value;
+    },
+
+    randomNumber(minimum, maximum){
       return Math.floor(Math.random() * maximum) + minimum;
     }
   },
 
-  mounted: function () {
+  mounted() {
     const self = this;
     window.addEventListener("keypress", function(e){
       let pressed = String.fromCharCode(e.keyCode);
       if(pressed == 'R' || pressed == 'r'){
         self.resetBoard();
-      }else if(pressed =='a' && Fixed.debug){ // quick answer for testing
+      }else if(pressed =='a' && cfg.debug){ // quick answer for testing
         self.userAnswer = self.answer;
       }
     });
