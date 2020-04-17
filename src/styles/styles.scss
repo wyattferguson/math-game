@@ -179,6 +179,16 @@ p {
     }
   }
 
+  #countdown{
+    h1{
+      font-size: $font-size-base * 5;
+    }
+
+    h2{
+      padding-top:40px;
+    }
+  }
+
   #problem{
     margin:0 auto;
     text-align: right;

@@ -1,7 +1,10 @@
 <template>
     <div id="game" class="container">
         <sidebar page="game"></sidebar>
+
         <welcome v-on:update-total="updateTotalProblems" @reset-board="resetBoard" v-if="state == 'welcome'"></welcome>
+        
+        <countdown @start-game="startGame" v-else-if="state == 'countdown'"></countdown>
 
         <div id="board" class="center" v-else-if="state == 'board'">
             <div id="problem">
@@ -38,12 +41,13 @@
 import sidebar from '../components/sidebar'
 import timer from '../components/timer'
 import welcome from '../components/welcome'
+import countdown from '../components/countdown'
 import cfg from '../config'
 
 export default {
   name: 'game',
   components: {
-    timer, sidebar, welcome
+    timer, sidebar, welcome, countdown
   },
   data() {
     return {
@@ -134,13 +138,17 @@ export default {
 
     // completely reset to new game
     resetBoard(){
-      this.state = "board";
-      this.$refs.timer.stopTimer();
+      this.state = "countdown";
       this.errors = 0;
       this.correct = 0;
-      this.userAnswer = "";
+    },
+
+    startGame(){
+      this.state = "board";
       this.$refs.timer.startTimer();
       this.generateProblem();
+      this.$refs.timer.stopTimer();
+      this.userAnswer = "";
 
       // wait a beat and set focus on answer box
       this.$nextTick(() =>{
