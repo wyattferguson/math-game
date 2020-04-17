@@ -7,7 +7,7 @@
 <script>
 export default {
     name: 'timer',
-    data: function() {
+    data() {
         return {
             time: "00:00:00",
             timeStart: 0,
@@ -15,29 +15,40 @@ export default {
         }
     }, 
     methods: {
-        startTimer: function(){
+        startTimer(){
             const interval = 25;
             this.timeStart = new Date();
             this.timeID = setInterval(this.updateTimer, interval);
         },
 
-        stopTimer: function(){
+        stopTimer(){
             clearInterval(this.timeID);
         },
 
-        updateTimer: function(){
+        updateTimer(){
             let currentTime = new Date()
             , timeElapsed = new Date(currentTime - this.timeStart)
             , min = timeElapsed.getUTCMinutes()
             , sec = this.leadingZeros(timeElapsed.getUTCSeconds())
-            , ms = this.leadingZeros(timeElapsed.getUTCMilliseconds());
+            , ms = this.msLeadingZeros(timeElapsed.getUTCMilliseconds());
             
             this.time = min + ":" + sec + ":" + ms;
         },
 
         // pad times with 0's
-        leadingZeros: function(dt){
+        leadingZeros(dt){
             return (dt < 10 ? '0' : '') + dt
+        },
+
+        // fix special cases timing in milliseconds
+        msLeadingZeros(dt){
+            if(dt < 100 && dt > 9){
+                return "0" + dt;
+            }else if(dt < 10){
+                return "00" + dt;
+            }else{
+                return dt;
+            }
         }
     }
 }

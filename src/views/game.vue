@@ -138,6 +138,7 @@ export default {
 
     // completely reset to new game
     resetBoard(){
+      this.$refs.timer.stopTimer();
       this.state = "countdown";
       this.errors = 0;
       this.correct = 0;
@@ -147,7 +148,6 @@ export default {
       this.state = "board";
       this.$refs.timer.startTimer();
       this.generateProblem();
-      this.$refs.timer.stopTimer();
       this.userAnswer = "";
 
       // wait a beat and set focus on answer box
