@@ -20,14 +20,7 @@
             </div>
         </div>
 
-        <div id="winner" class="center modal" v-else-if="state == 'winner'">
-            <h1>Winner!</h1>
-            <h2>Time: <span class="time">{{ time }}</span></h2>
-            <!--<h2>Rank: {{ rank }}</h2>
-            <button v-on:click="saveScore">Submit Score</button>
-            <h3>OR</h3>-->
-            <button v-on:click="resetBoard">New Game</button>
-        </div>
+        <winner :time="time" @reset-game="resetBoard" v-else-if="state == 'winner'"></winner>
 
         <div id="controls" class="side">
             <timer ref="timer"></timer>
@@ -42,12 +35,13 @@ import sidebar from '../components/sidebar'
 import timer from '../components/timer'
 import welcome from '../components/welcome'
 import countdown from '../components/countdown'
+import winner from '../components/winner'
 import cfg from '../config'
 
 export default {
   name: 'game',
   components: {
-    timer, sidebar, welcome, countdown
+    timer, sidebar, welcome, countdown, winner
   },
   data() {
     return {

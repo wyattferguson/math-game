@@ -1,5 +1,5 @@
 <template>
-    <div id="Timer">
+    <div id="timer">
         <h2 id="clock">{{ time }}</h2>
     </div>
 </template>
