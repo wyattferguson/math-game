@@ -14,6 +14,8 @@ $dbname = "smath";
 
 $con = mysqli_connect($host, $user, $password, $dbname);
 
+#make_tests();
+
 if (!$con) {
   die("Connection failed: " . mysqli_connect_error());
 }
@@ -24,15 +26,22 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
   case 'GET':
     if(isset($_GET['c'])){
-      $result = get_scores($_GET['c'], 5);
-      $rows = $result->fetch_all(MYSQLI_ASSOC);
-      echo json_encode($rows);
+      if(isset($_GET['s'])){
+        $result = get_rank($_GET['c'], $_GET['s']);
+        echo json_encode($result);
+      }else{
+        $result = get_scores($_GET['c'], 5);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        echo json_encode($rows);
+      }
     }
     break;
     
   case 'POST':
-    $result = insert_score($_POST);
-    echo json_encode($result);
+    if(isset($_GET['c']) && isset($_GET['t']) && isset($_GET['n'])){
+      $result = insert_score($_POST);
+      echo json_encode($result);
+    }
     break;
 }
 
@@ -63,11 +72,17 @@ function insert_score($post){
     die("Invalid Score");
   }
 
-  $score = str_replace(":","",$time);
+  $cln_score = clean_time($time);
 
-  $sql = "INSERT INTO leaderboard (name, time, category, score) VALUES ('$name', '$time', '$cat', '$score')"; 
-  echo $sql;
+  $sql = "INSERT INTO leaderboard (name, time, category, score) VALUES ('$name', '$time', '$cat', '$cln_score')"; 
   return run_query($sql);
+}
+
+
+function clean_time($time){
+  $score = str_replace(":","",$time);
+  $cln_score = ltrim($score, '0');
+  return $cln_score;
 }
 
 
@@ -83,18 +98,19 @@ function validate_name($name){
 
 
 function validate_time($time){
-  echo $time;
   $format = "i:s:u";
   $d = date_parse_from_format($format, $time);
   return (strlen($time) <= 10);
 }
 
 
-function get_rank($cat=10, $score=0){
-  $sql ="SELECT id, name, score, time,
-    1+(SELECT count(*) from leaderboard a WHERE a.score > b.score) as RNK,
-    FROM leaderboard b;";
-  return run_query($sql);
+function get_rank($cat=10, $time=0){
+  $score = clean_time($time);
+  $sql = "SELECT COUNT(*) AS count FROM leaderboard WHERE score < $score AND category = $cat ORDER BY score ASC";
+  $result = run_query($sql);
+  $rows = $result->fetch_all(MYSQLI_ASSOC);
+  $count = $rows[0]['count'] + 1;
+  return $count;
 }
 
 
@@ -113,7 +129,7 @@ function make_tests(){
   $cats = range(10,50,10);
   foreach($cats as $c){
     foreach($cases as $i){
-      $score = rand(1,8).":".rand(10,59).":".rand(10,59);
+      $score = "0".rand(1,8).":".rand(10,59).":".rand(100,999);
       $row = [
         'n' => rand(10000,99999),
         'c' => $c,

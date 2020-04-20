@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <winner :time="time" @reset-game="resetBoard" v-else-if="state == 'winner'"></winner>
+        <winner :cat="totalProblems" :time="time" @reset-game="resetBoard" v-else-if="state == 'winner'"></winner>
 
         <div id="controls" class="side">
             <timer ref="timer"></timer>
@@ -55,7 +55,7 @@ export default {
       onError: false,
       totalProblems: 10,
       userAnswer: "",
-      state: "welcome",
+      state: "winner",
       time: 0
     }
   }, 
