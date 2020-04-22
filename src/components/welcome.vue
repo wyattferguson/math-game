@@ -17,14 +17,13 @@
 </template>
 
 <script>
-    import cfg from '../config'
     export default {
         name: "welcome",
         data() {
             return {
-                maxQuestions: cfg.maxQuestions,
-                minQuestions: cfg.minQuestions,
-                minStep: cfg.minStep,
+                maxQuestions: this.$maxQuestions,
+                minQuestions: this.$minQuestions,
+                minStep: this.$minStep,
                 totalProblems: 10
             }
         },

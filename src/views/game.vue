@@ -36,7 +36,6 @@ import timer from '../components/timer'
 import welcome from '../components/welcome'
 import countdown from '../components/countdown'
 import winner from '../components/winner'
-import cfg from '../config'
 
 export default {
   name: 'game',
@@ -65,25 +64,21 @@ export default {
           calc: (a, b) => {
             return a - b;
           }
-        },
-        {
+        },{
           sign: 'x',
           max: 10,
           min: 1,
           calc: (a, b) => {
             return a * b;
           }
-        },
-        {
+        },{
           sign: '&divide;', // html entity for division
           max: 11,
           min: 1,
           calc: (a, b) => {
-            let c = a * b
-            return c;
+            return a * b;
           }
-        },
-        {
+        },{
           sign: '+',
           max: 50,
           min: 1,
@@ -122,7 +117,6 @@ export default {
     generateProblem(){
       let op = this.randomNumber(0,this.ops.length); // pick random operation
       let formula = this.ops[op];
-      this.operator = formula.sign;
       let a = this.randomNumber(formula.min,formula.max);
       let b = this.randomNumber(formula.min,formula.max);
 
@@ -148,6 +142,7 @@ export default {
           this.answer = formula.calc(a,b);
       }
 
+      this.operator = formula.sign;
       this.partA = a;
       this.partB = b;
       this.userAnswer = "";
@@ -187,10 +182,12 @@ export default {
     const self = this;
     window.addEventListener("keypress", function(e){
       let pressed = String.fromCharCode(e.keyCode);
-      if(pressed == 'R' || pressed == 'r'){
-        self.resetBoard();
-      }else if(pressed =='a' && cfg.debug){ // quick answer for testing
-        self.userAnswer = self.answer;
+      if(self.state != "winner"){
+        if(pressed == 'R' || pressed == 'r'){
+          self.resetBoard();
+        }else if(pressed =='a' && this.$debug){ // quick answer for testing
+          self.userAnswer = self.answer;
+        }
       }
     });
   }

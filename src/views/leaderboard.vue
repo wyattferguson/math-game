@@ -28,7 +28,6 @@
 
 <script>
 import sidebar from '../components/sidebar'
-import cfg from '../config'
 
 export default {
   name: 'leaderboard',
@@ -41,9 +40,9 @@ export default {
   data(){
     return{
       users: null,
-      maxQuestions: cfg.maxQuestions,
-      minQuestions: cfg.minQuestions,
-      minStep: cfg.minStep,
+      maxQuestions: this.$maxQuestions,
+      minQuestions: this.$minQuestions,
+      minStep: this.$minStep,
     }
   },
   methods: {

@@ -10,6 +10,7 @@
         </div>
 
         <div v-else>
+            <h3><span>SAVED!</span></h3>
             <button v-on:click="resetBoard">New Game</button>
         </div>
     </div>
@@ -35,8 +36,12 @@
                 this.$emit('reset-game');
             },
 
+            isAlphaNumeric(ch){
+                return ch.match(/^[a-z0-9]+$/i) !== null;
+            },
+
             saveScore(){
-                if(this.name && this.name.length < 11 && isAlphaNumeric(this.name)){
+                if(this.name && this.name.length < 11 && this.isAlphaNumeric(this.name)){
                     this.$http.post('',{
                         c: this.cat,
                         n: this.name,
@@ -53,10 +58,6 @@
                         self.errors = false
                     }, 500);
                 }
-            },
-
-            isAlphaNumeric(ch){
-                return ch.match(/^[a-z0-9]+$/i) !== null;
             }
         },
         mounted () {
