@@ -55,8 +55,43 @@ export default {
       onError: false,
       totalProblems: 10,
       userAnswer: "",
-      state: "winner",
-      time: 0
+      state: "welcome",
+      time: 0,
+      ops: [
+        {
+          sign: '-',
+          max: 100,
+          min: 5,
+          calc: (a, b) => {
+            return a - b;
+          }
+        },
+        {
+          sign: 'x',
+          max: 10,
+          min: 1,
+          calc: (a, b) => {
+            return a * b;
+          }
+        },
+        {
+          sign: '&divide;', // html entity for division
+          max: 11,
+          min: 1,
+          calc: (a, b) => {
+            let c = a * b
+            return c;
+          }
+        },
+        {
+          sign: '+',
+          max: 50,
+          min: 1,
+          calc: (a, b) => {
+            return a + b;
+          }
+        }
+      ]
     }
   }, 
   methods: {
@@ -85,44 +120,32 @@ export default {
     },
 
     generateProblem(){
-      let op = this.randomNumber(1,4); // pick random operation
-      let a = 0;
-      let b = 0;
+      let op = this.randomNumber(0,this.ops.length); // pick random operation
+      let formula = this.ops[op];
+      this.operator = formula.sign;
+      let a = this.randomNumber(formula.min,formula.max);
+      let b = this.randomNumber(formula.min,formula.max);
 
       switch (op) {
         // subtraction
-        case 1:
-          this.operator = "-";
-          a = this.randomNumber(5,100);
-          b = this.randomNumber(1, a);
-          this.answer = a - b;
-          break;
-
-        // mulitplication
-        case 2:
-          this.operator = "x";
-          a = this.randomNumber(2,12);
-          b = this.randomNumber(2,9);
-          this.answer = a * b;
+        case 0:
+          if(a < b){
+            b = [a, a = b][0]; // swap values so answer cant be negative
+          }
+          this.answer = formula.calc(a,b);
           break;
 
         // division
-        case 3:
-          this.operator = "&divide;"; // html entity for division
-          a = this.randomNumber(2,11);
-          b = this.randomNumber(2,11);
-          let c = a * b;
+        case 2:
+          // force answer to be a whole number
+          let c = formula.calc(a,b);
           this.answer = a;
           a = c;
           break;
 
-        // addition
+        // everything else
         default:
-          this.operator = "+";
-          a = this.randomNumber(1,50);
-          b = this.randomNumber(1,50);
-          this.answer = a + b;
-          break;
+          this.answer = formula.calc(a,b);
       }
 
       this.partA = a;
