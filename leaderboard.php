@@ -30,7 +30,7 @@ switch ($method) {
         $result = get_rank($_GET['c'], $_GET['s']);
         echo json_encode($result);
       }else{
-        $result = get_scores($_GET['c'], 5);
+        $result = get_scores($_GET['c']);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
         echo json_encode($rows);
       }
@@ -114,11 +114,11 @@ function get_rank($cat=10, $time=0){
 }
 
 
-function get_scores($cat=10, $limit=100){
+function get_scores($cat=10, $limit=50){
   if(!validate_cat($cat)){
     die("Invalid Query");
   }
-  $sql = "SELECT * FROM leaderboard WHERE category=$cat ORDER BY score DESC LIMIT 50"; 
+  $sql = "SELECT * FROM leaderboard WHERE category=$cat ORDER BY score ASC LIMIT $limit"; 
   return run_query($sql);
 }
 

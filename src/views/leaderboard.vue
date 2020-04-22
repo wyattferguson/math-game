@@ -19,7 +19,7 @@
 				  <td class="rank">{{ rank + 1}}</td>
           <td class="name">{{ user['name']}}</td>
           <td class="time">{{ user['time']}}</td>
-          <td class="date">{{ user['date_added']}}</td>
+          <td class="date">{{ date_added(user['date_added']) }}</td>
 			  </tr>
       </table>
     </div>
@@ -52,10 +52,20 @@ export default {
         .then(response => {
           this.users = response.data
       });
+    },
+    
+    // Clean up date format
+    date_added(user_date) {
+      return user_date.split(' ')[0];
     }
   },
   mounted() {
     this.getCategory();
+  },
+  watch: {
+    $route(to, from) {
+      this.getCategory();
+    }
   }
 }
 </script>
