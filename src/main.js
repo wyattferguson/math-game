@@ -10,7 +10,7 @@ Vue.prototype.$debug = true;
 Vue.prototype.$maxQuestions = 50;
 Vue.prototype.$minQuestions = 10;
 Vue.prototype.$minStep = 10;
-const server = (Vue.prototype.$debug) ? "http://localhost:80/math-game/server/leaderboard.php" : "http://math.wyattf.dev/server/leaderboard.php";
+const server = (Vue.prototype.$debug) ? "http://localhost/math-game/server/leaderboard.php" : "https://math.wyattf.dev/leaderboard.php";
 
 Vue.prototype.$http = axios.create({
   baseURL: server

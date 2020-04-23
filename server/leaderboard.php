@@ -3,7 +3,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-header('Access-Control-Allow-Origin: http://localhost:1234');
+$domain = "http://localhost:1234/";
+
+header('Access-Control-Allow-Origin: '.$domain);
 header('Access-Control-Allow-Methods: POST, GET');
 header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 header('Content-Type: application/x-www-form-urlencoded');
@@ -13,37 +15,40 @@ $user = "root";
 $password = "root"; 
 $dbname = "smath";
 
-$con = mysqli_connect($host, $user, $password, $dbname);
+if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == $domain){
 
-if (!$con) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+  $con = mysqli_connect($host, $user, $password, $dbname);
 
-$method = $_SERVER['REQUEST_METHOD'];
+  if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
 
-switch ($method) {
-  case 'GET':
-    if(isset($_GET['c'])){
-      if(isset($_GET['s'])){
-        $result = get_rank($_GET['c'], $_GET['s']);
-        echo json_encode($result);
-      }else{
-        $result = get_scores($_GET['c']);
-        $rows = $result->fetch_all(MYSQLI_ASSOC);
-        echo json_encode($rows);
+  $method = $_SERVER['REQUEST_METHOD'];
+
+  switch ($method) {
+    case 'GET':
+      if(isset($_GET['c'])){
+        if(isset($_GET['s'])){
+          $result = get_rank($_GET['c'], $_GET['s']);
+          echo json_encode($result);
+        }else{
+          $result = get_scores($_GET['c']);
+          $rows = $result->fetch_all(MYSQLI_ASSOC);
+          echo json_encode($rows);
+        }
       }
-    }
-    break;
-    
-  case 'POST':
-    if(isset($_POST['c']) && isset($_POST['t']) && isset($_POST['n'])){
-      $result = insert_score($_POST);
-      echo json_encode($result);
-    }
-    break;
-}
+      break;
+      
+    case 'POST':
+      if(isset($_POST['c']) && isset($_POST['t']) && isset($_POST['n'])){
+        $result = insert_score($_POST);
+        echo json_encode($result);
+      }
+      break;
+  }
 
-mysqli_close($con);
+  mysqli_close($con);
+}
 
 
 function run_query($sql){
