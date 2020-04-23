@@ -120,26 +120,14 @@ export default {
       let a = this.randomNumber(formula.min,formula.max);
       let b = this.randomNumber(formula.min,formula.max);
 
-      switch (op) {
-        // subtraction
-        case 0:
-          if(a < b){
-            b = [a, a = b][0]; // swap values so answer cant be negative
-          }
-          this.answer = formula.calc(a,b);
-          break;
-
-        // division
-        case 2:
-          // force answer to be a whole number
-          let c = formula.calc(a,b);
-          this.answer = a;
-          a = c;
-          break;
-
-        // everything else
-        default:
-          this.answer = formula.calc(a,b);
+      if(op == 2){
+        this.answer = a;
+        a = formula.calc(a,b);
+      }else{
+        if(a < b && op == 0){
+          b = [a, a = b][0]; // swap values so answer cant be negative
+        }
+        this.answer = formula.calc(a,b);
       }
 
       this.operator = formula.sign;
