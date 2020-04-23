@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2020 at 06:41 AM
+-- Generation Time: Apr 23, 2020 at 07:41 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -30,12 +30,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `leaderboard` (
   `id` int(11) NOT NULL,
-  `name` varchar(10) NOT NULL,
+  `name` varchar(16) NOT NULL,
   `score` int(11) NOT NULL,
   `time` tinytext NOT NULL,
   `category` int(11) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `leaderboard`
+--
+
+INSERT INTO `leaderboard` (`id`, `name`, `score`, `time`, `category`, `date_added`) VALUES
+(2, 'wyattf', 10075, '0:10:075', 10, '2020-04-23 05:31:33'),
+(3, 'wyattf', 30250, '0:30:250', 20, '2020-04-23 05:34:05'),
+(4, 'wyattf', 55250, '0:55:250', 30, '2020-04-23 05:35:51'),
+(5, 'wyattf', 112875, '1:12:875', 40, '2020-04-23 05:37:25'),
+(6, 'wyattf', 213150, '2:13:150', 50, '2020-04-23 05:40:11');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +66,7 @@ ALTER TABLE `leaderboard`
 -- AUTO_INCREMENT for table `leaderboard`
 --
 ALTER TABLE `leaderboard`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

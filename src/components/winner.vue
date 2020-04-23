@@ -41,15 +41,16 @@
             },
 
             saveScore(){
-                if(this.name && this.name.length < 11 && this.isAlphaNumeric(this.name)){
-                    this.$http.post('',{
-                        c: this.cat,
-                        n: this.name,
-                        t: this.time
-                    }).then(response => {
+                let formData = new FormData();
+                if(this.name && this.name.length < 16 && this.isAlphaNumeric(this.name)){
+                    formData.append("c", this.cat);
+                    formData.append("n", this.name);
+                    formData.append("t", this.time);
+
+                    this.$http.post('',
+                        formData
+                    ).then(response => {
                         this.saved = true;
-                    }).catch(e => {
-                        
                     });
                 }else{
                     const self = this;

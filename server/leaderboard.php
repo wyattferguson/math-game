@@ -6,6 +6,7 @@ ini_set('display_errors', 1);
 header('Access-Control-Allow-Origin: http://localhost:1234');
 header('Access-Control-Allow-Methods: POST, GET');
 header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
+header('Content-Type: application/x-www-form-urlencoded');
 
 $host = "localhost"; 
 $user = "root"; 
@@ -14,12 +15,9 @@ $dbname = "smath";
 
 $con = mysqli_connect($host, $user, $password, $dbname);
 
-#make_tests();
-
 if (!$con) {
   die("Connection failed: " . mysqli_connect_error());
 }
-
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -38,7 +36,7 @@ switch ($method) {
     break;
     
   case 'POST':
-    if(isset($_GET['c']) && isset($_GET['t']) && isset($_GET['n'])){
+    if(isset($_POST['c']) && isset($_POST['t']) && isset($_POST['n'])){
       $result = insert_score($_POST);
       echo json_encode($result);
     }
@@ -66,14 +64,11 @@ function insert_score($post){
   $time = $post["t"];
   $cat = $post["c"];
 
-  print_r($post);
-
   if(!validate_cat($cat) || !validate_time($time) || !validate_name($name)){
     die("Invalid Score");
   }
 
   $cln_score = clean_time($time);
-
   $sql = "INSERT INTO leaderboard (name, time, category, score) VALUES ('$name', '$time', '$cat', '$cln_score')"; 
   return run_query($sql);
 }
@@ -93,14 +88,14 @@ function validate_cat($cat){
 
 
 function validate_name($name){
-  return (ctype_alnum($name) && strlen($name) <= 10);
+  return (ctype_alnum($name) && strlen($name) <= 16);
 }
 
 
 function validate_time($time){
   $format = "i:s:u";
   $d = date_parse_from_format($format, $time);
-  return (strlen($time) <= 10);
+  return (strlen($time) <= 11);
 }
 
 

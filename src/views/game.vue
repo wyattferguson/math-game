@@ -173,7 +173,7 @@ export default {
       if(self.state != "winner"){
         if(pressed == 'R' || pressed == 'r'){
           self.resetBoard();
-        }else if(pressed =='a' && this.$debug){ // quick answer for testing
+        }else if(pressed =='a' && self.$debug){ // quick answer for testing
           self.userAnswer = self.answer;
         }
       }
