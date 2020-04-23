@@ -16,12 +16,10 @@ Production Build:
 npm run prod 
 ```
 
-
 ## :bookmark_tabs: TODO's 
 
-- Competative leader boards, for the more hardcore amoung you.
-- Add count down timer to start.
-- Different difficulty options, easy - being the current game, medium - algebra, hard - derivatives and integrals.
+- Variable difficulty options
+- Pagination to the leaderboard
 
 
 ## :mailbox_closed: Credit and Contact
