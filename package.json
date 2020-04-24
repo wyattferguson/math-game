@@ -10,8 +10,6 @@
     "vue-router": "^3.1.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@vue/component-compiler-utils": "^2.6.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
