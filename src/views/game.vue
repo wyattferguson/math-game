@@ -73,8 +73,8 @@ export default {
           }
         },{
           sign: '&divide;', // html entity for division
-          max: 11,
-          min: 1,
+          max: 15,
+          min: 2,
           calc: (a, b) => {
             return a * b;
           }
@@ -121,8 +121,9 @@ export default {
       let b = this.randomNumber(formula.min,formula.max);
 
       if(op == 2){
+        let c = formula.calc(a,b);
         this.answer = a;
-        a = formula.calc(a,b);
+        a = c;
       }else{
         if(a < b && op == 0){
           b = [a, a = b][0]; // swap values so answer cant be negative
