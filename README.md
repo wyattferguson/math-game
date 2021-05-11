@@ -22,11 +22,19 @@ npm run prod
 - Pagination to the leaderboard
 
 
-## :mailbox_closed: Credit and Contact
+## :postbox: Credit, Contact & Support
 
-Created by Wyatt Ferguson 
+Created by [Wyatt Ferguson](https://twitter.com/programmingsux)
 
-For any comments or questions your can reach me on Twitter [@wyattferguson](https://twitter.com/wyattferguson) or visit my little portfolio at [wyattf.dev](https://wyattf.dev)
+For any comments or questions your can reach me on Twitter [@wyattferguson](https://twitter.com/programmingsux) or visit my little portfolio at [wyattf.dev](https://wyattf.dev)
+
+If you like my theme and want to support me
+
+### [:coffee: Buy Me A Coffee](https://www.buymeacoffee.com/wyattferguson)
+
+### [:zap: Follow me on Twitter](https://twitter.com/programmingsux)
+
+### [:bus: Follow me on DEV.to](https://dev.to/wyattferguson)
 
 
 
